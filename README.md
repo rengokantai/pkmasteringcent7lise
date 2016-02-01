@@ -74,4 +74,29 @@ Then source the file:
 ```
 . ~/.bashrc
 ```
-
+in sudoers file, we can group commands such as
+```
+Cmnd_alias SOFTWARE = /bin/rpm, /usr/bin/yum
+Cmnd_alias SERVICES = /sbin/service, /sbin/chkconfig
+```
+For example, net admin can user can use only SOFTWARE COMMANDS
+```
+%netadmin ALL = SOFTWARE
+```
+wheel can use all cmds. Or we specify a user
+```
+%wheel ALL=(ALL) ALL
+user ALL=(ALL) ALL
+```
+Make a group using alias:
+```
+User_alias GROUPONE=user1,user2,user3
+```
+Assign a group exec some cmds without typing password
+```
+GROUPONE ALL=NOPASSWD: /usr/bin/updatedb, PASSWD: /bin/kill
+```
+Restrict exec:
+```
+GROUPONE ALL=NOEXEC: /usr/bin/less
+```
