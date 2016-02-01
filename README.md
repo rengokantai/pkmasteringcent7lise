@@ -100,3 +100,24 @@ Restrict exec:
 ```
 GROUPONE ALL=NOEXEC: /usr/bin/less
 ```
+
+
+- cp2  
+install selinux
+```
+yum install policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+```
+edit /etc/vsftpd/vsftpd.conf,add
+```
+chroot_local_user=YES
+chroot_list_enable=YES
+use_localtime=YES
+allow_writable_chroot=YES
+```
+
+Then
+```
+touch /etc/vsftpd/chroot_list
+firewall-cmd --permanent --add-service=ftp
+firewall-cmd --reload
+```
